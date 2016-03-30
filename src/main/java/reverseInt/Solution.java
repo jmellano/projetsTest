@@ -15,7 +15,7 @@ public class Solution {
         for (int i = xAbs.length(); i > 0; i--) {
             retourChar[k] = xAbs.charAt(i - 1);
             k++;
-        }
+    }
         String retour = "";
         for (int i = 0; i < k; i++) {
             retour = retour.concat(String.valueOf(retourChar[i]));

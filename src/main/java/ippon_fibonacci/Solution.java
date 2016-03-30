@@ -32,6 +32,53 @@ public class Solution {
         }
     }
 
+    public int[] toFibonacci2(int estimatedWorkLoad) {
+        List<Integer> fibListe;
+        List<Integer> decomposition = new ArrayList<>();
+        int reste = estimatedWorkLoad;
+        if (estimatedWorkLoad > 2) {
+            fibListe = getFibonacciTo(estimatedWorkLoad);
+            while (reste > 0) {
+                Integer lastFibToAdd = fibListe.get(fibListe.size() - 1);
+                decomposition.add(lastFibToAdd);
+                reste = reste - lastFibToAdd;
+                fibListe = cleanListe(fibListe, reste);
+            }
+        } else {
+            return new int[]{estimatedWorkLoad};
+        }
+        int[] retour = new int[decomposition.size()];
+        for (int i = 0; i < decomposition.size(); i++) {
+            retour[i] = decomposition.get(i);
+        }
+        return retour;
+    }
+
+    private List<Integer> cleanListe(List<Integer> fibListe, int reste) {
+        while (fibListe.size() > 0 && fibListe.get(fibListe.size() - 1) > reste) {
+            fibListe.remove(fibListe.size() - 1);
+        }
+        return fibListe;
+    }
+
+    private List<Integer> getFibonacciTo(int estimatedWorkLoad) {
+        List<Integer> fibList = new ArrayList<>();
+        fibList.add(1);
+        fibList.add(2);
+        int prev1 = 1;
+        int prev2 = 2;
+        for (int i = 3; i <= estimatedWorkLoad; ) {
+            int next = prev1 + prev2;
+            if (next <= estimatedWorkLoad) {
+                fibList.add(next);
+            }
+            prev1 = prev2;
+            prev2 = next;
+            i = next;
+        }
+        return fibList;
+    }
+
     public int[] toFibonacci(int estimatedWorkLoad) {
         List<Integer> liste = new ArrayList<>();
 
